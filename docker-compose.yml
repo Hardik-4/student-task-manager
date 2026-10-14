@@ -1,0 +1,16 @@
+# Starts MySQL 8 and creates the tasks table (plus sample tasks) from db/schema.sql.
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: taskmanager
+      MYSQL_USER: student
+      MYSQL_PASSWORD: student
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - task-data:/var/lib/mysql
+volumes:
+  task-data:
